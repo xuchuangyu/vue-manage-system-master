@@ -48,12 +48,17 @@ export default {
          submitForm() {
             this.$refs.login.validate(async valid => {
                 if (valid) {
-                    let datas=await LoginApi.postToken(this.param)
-                    if(datas.success==1){
-                            this.$message.success('登录成功');
-                            localStorage.setItem('ms_username',JSON.stringify(datas.datas));
-                            this.$router.push('/');
+                    try{
+                        let datas=await LoginApi.postToken(this.param)
+                        if(datas.success==1){
+                                this.$message.success('登录成功');
+                                localStorage.setItem('ms_username',JSON.stringify(datas.datas));
+                                this.$router.push('/');
+                        }
+                    }catch(err){
+                           this.$message.error(err.msg);
                     }
+                
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');

@@ -150,9 +150,10 @@ export default {
             this.$confirm('确定要删除吗？', '提示', {
                 type: 'warning'
             })
-                .then(() => {
-                    this.$message.success('删除成功');
-                    this.tableData.splice(index, 1);
+                .then(async () => {
+                    await article.del(row.id)
+                    // this.$message.success('删除成功');
+                    // this.tableData.splice(index, 1);
                 })
                 .catch(() => {});
         },
@@ -172,9 +173,11 @@ export default {
         },
         // 编辑操作
         handleEdit(index, row) {
-            this.idx = index;
-            this.form = row;
-            this.editVisible = true;
+          //  this.idx = index;
+        //    this.form = row;
+
+        //  this.editVisible = true;
+            this.$router.push({path:'/article-edit',query:{id:row.id}})
         },
         // 保存编辑
         saveEdit() {
@@ -214,6 +217,7 @@ export default {
 .mr10 {
     margin-right: 10px;
 }
+
 .table-td-thumb {
     display: block;
     margin: auto;

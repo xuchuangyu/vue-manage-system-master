@@ -54,7 +54,13 @@ export default new Router({
                     // 富文本编辑器组件
                     path: '/article-add',
                     component: () => import(/* webpackChunkName: "editor" */ '../components/page/article-add.vue'),
-                    meta: { title: '添加或编辑文章' }
+                    meta: { title: '添加文章' }
+                },
+                {
+                    // 富文本编辑器组件
+                    path: '/article-edit',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/article-add.vue'),
+                    meta: { title: '编辑文章' }
                 },
                 {
                     // 富文本编辑器组件

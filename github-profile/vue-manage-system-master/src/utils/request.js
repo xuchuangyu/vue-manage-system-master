@@ -9,6 +9,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
+        console.log('config')
+        console.log(config)
         return config;
     },
     error => {
@@ -19,6 +21,9 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
     response => {
+        console.log('response')
+        console.log(response)
+    
         if (response.status === 200) {
             return response.data;
         } else {
@@ -27,8 +32,20 @@ service.interceptors.response.use(
       
     },
     error => {
-        console.log(error);
-        return Promise.reject();
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        return Promise.reject(error.response.data);
     }
 );
 

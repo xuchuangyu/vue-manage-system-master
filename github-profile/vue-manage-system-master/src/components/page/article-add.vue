@@ -60,14 +60,40 @@
         components: {
             quillEditor
         },
+        mounted () {
+            if(this.$route.path=='/article-edit'){
+                this.reqlist()
+            }
+        },
         methods: {
             onEditorChange({ editor, html, text }) {
                 this.form.content = html;
             },
-            submit(){
-                article.create(this.form)
-                this.$message.success('提交成功！');
-                window.closeTagsPage()
+           async submit(){
+             let datas={};
+               try{
+                if(this.$route.path=='/article-edit'){
+                    datas=await article.update(this.form)
+                }else{
+                    datas=await article.create(this.form)
+                }
+               }catch(err){
+                  if(err.error_code==0){
+                        this.$message.success('提交成功！');
+                         window.closeTagsPage()
+                  } 
+                //    if(err.){}
+               }
+                if(datas.success==1){
+                    this.$message.success('提交成功！');
+                    window.closeTagsPage()
+                }
+            },
+           async reqlist(){
+                let id=this.$route.query.id;
+
+                let datas=await article.queryDetail(id);
+                this.form=datas.datas
             }
         }
     }
