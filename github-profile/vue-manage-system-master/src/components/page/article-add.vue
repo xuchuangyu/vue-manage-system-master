@@ -65,6 +65,11 @@
                 this.reqlist()
             }
         },
+        activated(){
+            if(this.$route.path=='/article-edit'){
+                this.reqlist()
+            }
+        },
         methods: {
             onEditorChange({ editor, html, text }) {
                 this.form.content = html;

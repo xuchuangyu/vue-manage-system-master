@@ -5,6 +5,9 @@ export default {
             params,
           })
     },
+    queryCategoryList(){
+        return  require.get('/v1/category')
+    },
     create(params){
         return  require.post('/v1/article/create',JSON.stringify(params), {
             headers:{

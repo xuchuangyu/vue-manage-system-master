@@ -15,11 +15,15 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
-                </el-select>
-                <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
+                 <el-input v-model="query.title" placeholder="请输入文章标题" class="handle-input mr10"></el-input>
+                    <el-autocomplete
+                    v-model="query.category"
+                    :fetch-suggestions="querySearch"
+                    placeholder="请输入文章分类"
+                    valueKey="name"
+                    @select="handleSelect"
+                 ></el-autocomplete>
+               
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button @click="$router.push('/article-add')"> 添加文章 </el-button>
             </div>
@@ -114,7 +118,7 @@ export default {
     data() {
         return {
             query: {
-                address: '',
+                title:'',
                 name: '',
                 pageIndex: 1,
                 pageSize: 10
@@ -131,13 +135,41 @@ export default {
     },
     created() {
         this.getData();
+          this.getCategoryDate()
+    },
+    activated(){
+       this.getData();
+       this.getCategoryDate()
     },
     methods: {
         // 获取 easy-mock 的模拟数据
         async getData() {
-         let datas=await article.queryList({})
+         console.log(this.query)
+         let query={};
+         Object.assign(query,this.query)
+         console.log(query)
+         let datas=await article.queryList(query)
          this.tableData=datas.datas.rows;
          this.pageTotal=datas.datas.count;
+        },
+       async getCategoryDate(){
+            let datas=await article.queryCategoryList();
+            this.restaurants=datas.datas;
+       },
+     querySearch(queryString, cb) {
+
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.name.toLowerCase().indexOf(queryString.toLowerCase()) !=-1);
+        };
+      },
+        handleSelect(item){
+              this.getData();
         },
         // 触发搜索按钮
         handleSearch() {

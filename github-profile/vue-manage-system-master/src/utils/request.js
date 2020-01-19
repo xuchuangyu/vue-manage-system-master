@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import router from '../router';
+import ElementUI from 'element-ui';
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
     // easy-mock服务挂了，暂时不使用了
@@ -31,7 +32,7 @@ service.interceptors.response.use(
         }
       
     },
-    error => {
+   async  error => {
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -44,8 +45,21 @@ service.interceptors.response.use(
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
           }
-          console.log(error.config);
-        return Promise.reject(error.response.data);
+          let res=error.response.data;
+          console.log(res);
+          if(res.error_code==10006){
+            console.log(10006)
+           ElementUI.Notification({
+                title: res.msg,
+                message: '清退出重新登录',
+                offset: 100
+            })
+            localStorage.removeItem('ms_username');
+            router.push('/login');
+          }else{
+            return Promise.reject(res);
+          }
+       
     }
 );
 

@@ -33,8 +33,8 @@ export default {
     data: function() {
         return {
             param: {
-                account: 'admin',
-                secret: '123456',
+                account: '254568214@qq.com',
+                secret: 'xucy123456',
                 type:101,
                 address:returnCitySN['cname']
             },
