@@ -23,5 +23,8 @@ export default {
     },
     delTodoList(id){
       return  require.delete(`/v1/todoList/${id}`)
-    }
+    },
+    queryCategoryList(){
+      return  require.get('/v1/category')
+  },
 }

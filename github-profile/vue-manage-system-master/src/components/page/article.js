@@ -31,5 +31,12 @@ export default {
                 'Content-Type':"application/json",
             }
         })
-    }
+    },
+    postComment(params){
+        return  require.post('/v1/comment',JSON.stringify(params), {
+            headers:{
+                'Content-Type':"application/json",
+            }
+          })
+    },
 }

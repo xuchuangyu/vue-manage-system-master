@@ -64,7 +64,7 @@
                 </el-table-column>
 
                 <el-table-column prop="date" label="注册时间"></el-table-column>-->
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column label="操作" width="280" align="center">
                     <template slot-scope="scope">
                         <el-button
                             type="text"
@@ -77,6 +77,11 @@
                             class="red"
                             @click="handleDelete(scope.$index, scope.row)"
                         >删除</el-button>
+                          <el-button
+                            type="text"
+                            icon="el-icon-edit"
+                            @click="handleComment(scope.$index, scope.row)"
+                        >测试评论</el-button>
                     </template>
                 </el-table-column> 
             </el-table>
@@ -98,7 +103,7 @@
                 <el-form-item label="用户名">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
+                <el-form-item label="评论内容">
                     <el-input v-model="form.address"></el-input>
                 </el-form-item>
             </el-form>
@@ -135,7 +140,7 @@ export default {
     },
     created() {
         this.getData();
-          this.getCategoryDate()
+        this.getCategoryDate()
     },
     activated(){
        this.getData();
@@ -144,10 +149,8 @@ export default {
     methods: {
         // 获取 easy-mock 的模拟数据
         async getData() {
-         console.log(this.query)
          let query={};
          Object.assign(query,this.query)
-         console.log(query)
          let datas=await article.queryList(query)
          this.tableData=datas.datas.rows;
          this.pageTotal=datas.datas.count;
@@ -176,6 +179,7 @@ export default {
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
         },
+
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
@@ -184,10 +188,22 @@ export default {
             })
                 .then(async () => {
                     await article.del(row.id)
+                      this.getData();
                     // this.$message.success('删除成功');
                     // this.tableData.splice(index, 1);
                 })
                 .catch(() => {});
+        },
+       async handleComment(index,row){
+            try{
+             let prompt= await  this.$prompt('请输入评论内容', '提示',)
+             let param={};
+        
+             param['content']=prompt.value;
+            let datas= await  article.postComment(param)
+            }catch(err){
+
+            }
         },
         // 多选操作
         handleSelectionChange(val) {

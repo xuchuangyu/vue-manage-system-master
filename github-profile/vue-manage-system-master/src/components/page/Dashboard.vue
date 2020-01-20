@@ -21,12 +21,9 @@
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
-                        <span>语言详情</span>
-                    </div>Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
-                    <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
+                        <span>文章分类详情</span>
+                    </div>
+                  <v-swiper></v-swiper>
                 </el-card>
             </el-col>
             <el-col :span="16">
@@ -128,6 +125,7 @@
 import Schart from 'vue-schart';
 import  Dashboard from './Dashboard.js'
 import bus from '../common/bus';
+import VSwiper from '../common/v-swiper.vue'
 export default {
     name: 'dashboard',
     data() {
@@ -187,6 +185,7 @@ export default {
                     }
                 ]
             },
+            restaurants:[],
             options2: {
                 type: 'line',
                 title: {
@@ -211,7 +210,8 @@ export default {
         };
     },
     components: {
-        Schart
+        Schart,
+        VSwiper
     },
     computed: {
         role() {
@@ -219,11 +219,13 @@ export default {
         }
     },
     created() {
-        this.queryTodoList()
+        this.queryTodoList();
+           this.getCategoryDate()
     },
     activated() {
         // this.handleListener();
-        this.queryTodoList()
+        this.queryTodoList();
+        this.getCategoryDate()
     },
     // deactivated() {
     //     window.removeEventListener('resize', this.renderChart);
@@ -243,6 +245,10 @@ export default {
              this.$forceUpdate()
          }
         },
+         async getCategoryDate(){
+            let datas=await Dashboard.queryCategoryList();
+            this.restaurants=datas.datas;
+          },
         changeDate() {
             const now = new Date().getTime();
             this.data.forEach((item, index) => {

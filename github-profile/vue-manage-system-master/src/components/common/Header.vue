@@ -50,13 +50,14 @@
 </template>
 <script>
 import bus from '../common/bus';
+import HeaderApi from './Header.js'
 export default {
     data() {
         return {
             collapse: false,
             fullscreen: false,
             name: 'linxin',
-            message: 2
+            message: null
         };
     },
     computed: {
@@ -66,6 +67,10 @@ export default {
         }
     },
     methods: {
+       async init(){
+           let datas=await HeaderApi.queryMessage()
+           this.message=datas.datas.count
+        },
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
@@ -110,6 +115,7 @@ export default {
         if (document.body.clientWidth < 1500) {
             this.collapseChage();
         }
+        this.init();
     }
 };
 </script>

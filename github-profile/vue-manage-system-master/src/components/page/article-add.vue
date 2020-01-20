@@ -61,16 +61,20 @@
             quillEditor
         },
         mounted () {
-            if(this.$route.path=='/article-edit'){
-                this.reqlist()
-            }
+            this.init()
         },
         activated(){
-            if(this.$route.path=='/article-edit'){
-                this.reqlist()
-            }
+             this.init()
         },
+    
         methods: {
+            init(){
+             
+                if(this.$route.path=='/article-edit'){
+                    window.getDate=this.reqlist
+                    this.reqlist()
+               }
+            },
             onEditorChange({ editor, html, text }) {
                 this.form.content = html;
             },

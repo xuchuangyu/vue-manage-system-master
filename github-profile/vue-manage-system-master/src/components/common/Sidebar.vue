@@ -93,10 +93,10 @@ export default {
                                     index: 'editor',
                                     title: '富文本编辑器'
                                 },
-                            //  {
-                            //         index: 'froalaEditor',
-                            //         title: 'froala编辑器'
-                            //     },
+                             {
+                                    index: 'froalaEditor',
+                                    title: 'froala编辑器'
+                                },
                                 
                                 {
                                     index: 'markdown',
