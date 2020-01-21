@@ -18,6 +18,7 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
 import './components/common/directives';
+import common from './utils/common.js'
 import 'babel-polyfill';
 window.$=jQuery
 Vue.use(VueFroala)
@@ -30,6 +31,8 @@ const i18n = new VueI18n({
     locale: 'zh',
     messages
 });
+Vue.prototype.$common=common
+
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;

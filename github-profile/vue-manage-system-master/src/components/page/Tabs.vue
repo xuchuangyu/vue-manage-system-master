@@ -11,10 +11,14 @@
                     <el-table :data="unread" :show-header="false" style="width: 100%">
                         <el-table-column>
                             <template slot-scope="scope">
-                                <span class="message-title">{{scope.row.title}}</span>
+                                <span class="message-title">{{scope.row.content}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="date" width="180"></el-table-column>
+                        <el-table-column width="180">
+                              <template slot-scope="scope">
+                             {{$common.formatDate(scope.row.created_at)}}
+                             </template>
+                        </el-table-column>
                         <el-table-column width="120">
                             <template slot-scope="scope">
                                 <el-button size="small" @click="handleRead(scope.$index)">标为已读</el-button>
@@ -30,10 +34,14 @@
                         <el-table :data="read" :show-header="false" style="width: 100%">
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
+                                    <span class="message-title">{{scope.row.content}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
+                            <el-table-column  width="150">
+                                    <template slot-scope="scope">
+                                {{$common.formatDate(scope.row.created_at)}}
+                                 </template>
+                            </el-table-column>
                             <el-table-column width="120">
                                 <template slot-scope="scope">
                                     <el-button type="danger" @click="handleDel(scope.$index)">删除</el-button>
@@ -50,10 +58,14 @@
                         <el-table :data="recycle" :show-header="false" style="width: 100%">
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
+                                    <span class="message-title">{{scope.row.content}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
+                            <el-table-column  width="150">
+                                   <template slot-scope="scope">
+                                {{$common.formatDate(scope.row.created_at)}}
+                                 </template>
+                            </el-table-column>
                             <el-table-column width="120">
                                 <template slot-scope="scope">
                                     <el-button @click="handleRestore(scope.$index)">还原</el-button>
@@ -71,40 +83,47 @@
 </template>
 
 <script>
+    import Tabs from './Tabs.js'
     export default {
         name: 'tabs',
         data() {
             return {
                 message: 'first',
                 showHeader: false,
-                unread: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护',
-                },{
-                    date: '2018-04-19 21:00:00',
-                    title: '今晚12点整发大红包，先到先得',
-                }],
-                read: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-                }],
-                recycle: [{
-                    date: '2018-04-19 20:00:00',
-                    title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-                }]
+                unread: [],
+                read: [],
+                recycle: []
             }
         },
+        mounted () {
+            this.queryLIst()
+        },
+        activated(){
+            this.queryLIst()
+        },
         methods: {
-            handleRead(index) {
+           async queryLIst(){
+              let datas= await Tabs.queryMessage()
+              this.unread=datas.unread;
+              this.read=datas.read;
+              this.recycle=datas.recycle;
+            },
+            handerTime(time){
+                time=new Date(time).getTime()
+                return time;
+            },
+           async handleRead(index) {
+               await Tabs.PutMessage({id:this.unread[index].id,read:1})
                 const item = this.unread.splice(index, 1);
-                console.log(item);
                 this.read = item.concat(this.read);
             },
-            handleDel(index) {
+           async handleDel(index) {
+                await Tabs.PutMessage({id:this.read[index].id,recycle:1})
                 const item = this.read.splice(index, 1);
                 this.recycle = item.concat(this.recycle);
             },
-            handleRestore(index) {
+           async handleRestore(index) {
+                 await Tabs.PutMessage({id:this.recycle[index].id,recycle:-1})
                 const item = this.recycle.splice(index, 1);
                 this.read = item.concat(this.read);
             }

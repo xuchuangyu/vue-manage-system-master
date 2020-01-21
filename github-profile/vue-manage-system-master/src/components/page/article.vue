@@ -198,8 +198,9 @@ export default {
             try{
              let prompt= await  this.$prompt('请输入评论内容', '提示',)
              let param={};
-        
              param['content']=prompt.value;
+             param['articleId']=  this.tableData[index].id;
+            
             let datas= await  article.postComment(param)
             }catch(err){
 
@@ -230,7 +231,7 @@ export default {
         // 保存编辑
         saveEdit() {
             this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
+            // this.$message.success(`修改第 ${this.idx + 1} 行成功`);
             this.$set(this.tableData, this.idx, this.form);
         },
         // 分页导航

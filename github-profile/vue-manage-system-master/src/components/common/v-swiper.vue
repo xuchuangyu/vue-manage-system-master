@@ -18,7 +18,7 @@
       >
         <span>{{item.name}}</span>
          <el-progress
-          :percentage="item.number/contentArr.length*100"
+          :percentage="(item.number/number*100).toFixed(1)"
           :color="color[index]"
         ></el-progress>
       </li>
@@ -30,7 +30,7 @@
       >
         <span>{{item.name}}</span>
         <el-progress
-          :percentage="item.number/contentArr.length*100"
+          :percentage="(item.number/number*100).toFixed(1)"
           :color="color[index]"
         ></el-progress>
       </li>
@@ -55,6 +55,7 @@ export default {
     return {
       contentArr: [],
       num: 0,
+      number:0,
       color: [
         "#55A532",
         "#18C79C",
@@ -72,6 +73,7 @@ export default {
   async mounted() {
     let datas = await vSwiper.queryCategoryList();
     this.contentArr = datas.datas;
+    this.number=datas.number
   },
   computed: {
     transform: function() {
