@@ -63,8 +63,18 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'article',
-                    title: '文章列表'
+                    index: '9',
+                    title: '文章',
+                    subs: [
+                            {
+                                index: 'article',
+                                title: '文章列表'
+                            },
+                            {
+                                index: 'comment',
+                                title: '文章评论'
+                            },
+                        ]
                 },
                 {
                     icon: 'el-icon-lx-cascades',
@@ -154,7 +164,18 @@ export default {
                             title: '404页面'
                         }
                     ]
-                }
+                },
+                {
+                    icon: 'el-icon-lx-global',
+                    index: '8',
+                    title: '百度',
+                    subs:[
+                        {
+                            index:'ocr',
+                            title: '识别图片文本'
+                        }
+                    ]
+                },
             ]
         };
     },

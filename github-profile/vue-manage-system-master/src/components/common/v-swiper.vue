@@ -3,6 +3,7 @@
   <div
     :style="{height:height*lineNum + 'px'}"
     class="rollScreen_container"
+    v-if="contentArr.length>0"
     id="rollScreen_container"
   >
     <ul
@@ -18,7 +19,7 @@
       >
         <span>{{item.name}}</span>
          <el-progress
-          :percentage="(item.number/number*100).toFixed(1)"
+          :percentage="parseFloat((item.number/number*100).toFixed(1))"
           :color="color[index]"
         ></el-progress>
       </li>
@@ -30,7 +31,7 @@
       >
         <span>{{item.name}}</span>
         <el-progress
-          :percentage="(item.number/number*100).toFixed(1)"
+          :percentage="parseFloat((item.number/number*100).toFixed(1))"
           :color="color[index]"
         ></el-progress>
       </li>

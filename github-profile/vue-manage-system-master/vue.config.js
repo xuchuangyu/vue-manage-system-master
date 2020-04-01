@@ -12,7 +12,7 @@ module.exports = {
                 }
             },
             '/v1': {
-                target: 'http://localhost:3009//v1',
+                target: 'http://localhost:3009/v1',
                 // target: 'http://47.100.183.225:3009/v1',
                 changeOrigin: true,
                 pathRewrite: {          

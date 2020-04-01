@@ -63,6 +63,10 @@
                     <el-form-item label="文本框">
                         <el-input type="textarea" rows="5" v-model="form.desc"></el-input>
                     </el-form-item>
+                       <el-form-item label="滑块">
+                            <vue-slider v-model="value" :marks="true" :interval="1" max="10">
+                            </vue-slider> 
+                       </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">表单提交</el-button>
                         <el-button>取消</el-button>
@@ -74,11 +78,13 @@
 </template>
 
 <script>
+import VueSlider from 'vue-slider-component'
 export default {
     name: 'baseform',
     data() {
         return {
-            options: [
+             value: 0,
+             options: [
                 {
                     value: 'guangdong',
                     label: '广东省',
@@ -143,6 +149,9 @@ export default {
             }
         };
     },
+    components: {
+        VueSlider,
+    },
     methods: {
         onSubmit() {
             this.$message.success('提交成功！');
@@ -150,3 +159,11 @@ export default {
     }
 };
 </script>
+<style>
+  .custom-mark {
+    position: absolute;
+    top: 10px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+</style>

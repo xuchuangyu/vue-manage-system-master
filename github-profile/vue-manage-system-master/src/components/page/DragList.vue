@@ -59,48 +59,9 @@
                     group: 'sortlist',
                     ghostClass: 'ghost-style'
                 },
-                todo: [
-                    {
-                        id: 1,
-                        content: '开发图表组件'
-                    },
-                    {
-                        id: 2,
-                        content: '开发拖拽组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发权限测试组件'
-                    }
-                ],
-                doing: [
-                    {
-                        id: 1,
-                        content: '开发登录注册页面'
-                    },
-                    {
-                        id: 2,
-                        content: '开发头部组件'
-                    },
-                    {
-                        id: 3,
-                        content: '开发表格相关组件'
-                    },
-                    {
-                        id: 4,
-                        content: '开发表单相关组件'
-                    }
-                ],
-                done:[
-                    {
-                        id: 1,
-                        content: '初始化项目，生成工程目录，完成相关配置'
-                    },
-                    {
-                        id: 2,
-                        content: '开发项目整体框架'
-                    }
-                ]
+                todo: [],
+                doing: [],
+                done:[]
             }
         },
         components:{

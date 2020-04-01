@@ -4,6 +4,7 @@ import router from './router';
 import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import jQuery from 'jquery';
+import VueSocketIO from 'vue-socket.io'
 import VueFroala from 'vue-froala-wysiwyg'
 　　//引入 Froala Editor js file.
 　　require('froala-editor/js/froala_editor.pkgd.min')
@@ -18,6 +19,7 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
 import './components/common/directives';
+import 'vue-slider-component/theme/antd.css'
 import common from './utils/common.js'
 import 'babel-polyfill';
 window.$=jQuery
@@ -32,7 +34,10 @@ const i18n = new VueI18n({
     messages
 });
 Vue.prototype.$common=common
-
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://localhost:3009',
+}))
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;

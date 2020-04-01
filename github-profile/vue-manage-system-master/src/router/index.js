@@ -27,7 +27,12 @@ export default new Router({
                 {
                     path: '/article',
                     component: () => import(/* webpackChunkName: "table" */ '../components/page/article.vue'),
-                    meta: { title: '基础表格' }
+                    meta: { title: '文章列表' }
+                },
+                {
+                    path: '/comment',
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/comment.vue'),
+                    meta: { title: '文章评论' }
                 },
                 {
                     path: '/table',
@@ -124,7 +129,13 @@ export default new Router({
                     path: '/donate',
                     component: () => import(/* webpackChunkName: "donate" */ '../components/page/Donate.vue'),
                     meta: { title: '支持作者' }
+                },
+                {
+                    path: '/ocr',
+                    component: () => import(/* webpackChunkName: "donate" */ '../components/page/ocr.vue'),
+                    meta: { title: '识别图片文本' }
                 }
+                
             ]
         },
         {
