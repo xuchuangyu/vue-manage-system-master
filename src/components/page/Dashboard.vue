@@ -123,7 +123,7 @@
 
 <script>
 import Schart from 'vue-schart';
-import  Dashboard from './Dashboard.js'
+import  Dashboard from '../../api/Dashboard.js'
 import bus from '../common/bus';
 import VSwiper from '../common/v-swiper.vue'
 export default {
@@ -240,7 +240,7 @@ export default {
                  item.editStatus=false;
                  item.status= item.status==1?true:false
              }
-             
+
              this.todoList=datas.datas
              this.$forceUpdate()
          }

@@ -28,13 +28,13 @@
 </template>
 
 <script>
-import LoginApi from './LoginApi'
+import LoginApi from '../../api/LoginApi'
 export default {
     data: function() {
         return {
             param: {
-                account: '254568214@qq.com',
-                secret: 'xucy123456',
+                account: '254568216@qq.com',
+                secret: 'aa123456',
                 type:101,
                 address:returnCitySN['cname']
             },
@@ -52,13 +52,14 @@ export default {
                         let datas=await LoginApi.postToken(this.param)
                         if(datas.success==1){
                                 this.$message.success('登录成功');
-                                localStorage.setItem('ms_username',JSON.stringify(datas.datas));
+                                 localStorage.setItem('ms_username',JSON.stringify(datas.datas));
+                                 sessionStorage.setItem('token',datas.token)
                                 this.$router.push('/');
                         }
                     }catch(err){
                            this.$message.error(err.msg);
                     }
-                
+
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');

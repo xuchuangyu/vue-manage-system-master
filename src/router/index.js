@@ -69,6 +69,12 @@ export default new Router({
                 },
                 {
                     // 富文本编辑器组件
+                    path: '/banner',
+                    component: () => import(/* webpackChunkName: "editor" */ '../components/page/banner.vue'),
+                    meta: { title: '广告列表' }
+                },
+                {
+                    // 富文本编辑器组件
                     path: '/froalaEditor',
                     component: () => import(/* webpackChunkName: "editor" */ '../components/page/froalaEditor.vue'),
                     meta: { title: 'froalaEditor编辑器' }
@@ -126,16 +132,11 @@ export default new Router({
                     meta: { title: '403' }
                 },
                 {
-                    path: '/donate',
-                    component: () => import(/* webpackChunkName: "donate" */ '../components/page/Donate.vue'),
-                    meta: { title: '支持作者' }
-                },
-                {
                     path: '/ocr',
                     component: () => import(/* webpackChunkName: "donate" */ '../components/page/ocr.vue'),
                     meta: { title: '识别图片文本' }
                 }
-                
+
             ]
         },
         {

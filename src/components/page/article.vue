@@ -23,7 +23,7 @@
                     valueKey="name"
                     @select="handleSelect"
                  ></el-autocomplete>
-               
+
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button @click="$router.push('/article-add')"> 添加文章 </el-button>
             </div>
@@ -39,31 +39,6 @@
                  <el-table-column  prop="id" label="ID" width="55" align="center"></el-table-column>
                  <el-table-column  prop="title" label="文章标题" align="center"></el-table-column>
                  <el-table-column  prop="category" label="文章分类" align="center"></el-table-column>
-            
-              <!--    <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                <el-table-column prop="name" label="用户名"></el-table-column>
-                <el-table-column label="账户余额">
-                    <template slot-scope="scope">￥{{scope.row.money}}</template>
-                </el-table-column>
-                <el-table-column label="头像(查看大图)" align="center">
-                    <template slot-scope="scope">
-                        <el-image
-                            class="table-td-thumb"
-                            :src="scope.row.thumb"
-                            :preview-src-list="[scope.row.thumb]"
-                        ></el-image>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="address" label="地址"></el-table-column>
-                <el-table-column label="状态" align="center">
-                    <template slot-scope="scope">
-                        <el-tag
-                            :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-                        >{{scope.row.state}}</el-tag>
-                    </template>
-                </el-table-column>
-
-                <el-table-column prop="date" label="注册时间"></el-table-column>-->
                 <el-table-column label="操作" width="280" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -83,7 +58,7 @@
                             @click="handleComment(scope.$index, scope.row)"
                         >测试评论</el-button>
                     </template>
-                </el-table-column> 
+                </el-table-column>
             </el-table>
             <div class="pagination">
                 <el-pagination
@@ -116,8 +91,7 @@
 </template>
 
 <script>
-import { fetchData } from '../../api/index';
-import article from './article'
+import article from '../../api/article'
 export default {
     name: 'basetable',
     data() {
@@ -200,7 +174,7 @@ export default {
              let param={};
              param['content']=prompt.value;
              param['articleId']=  this.tableData[index].id;
-            
+
             let datas= await  article.postComment(param)
             }catch(err){
 

@@ -29,7 +29,7 @@
                 访问地址：<a href="https://github.com/surmon-china/vue-quill-editor" target="_blank">vue-quill-editor</a>
             </div> -->
 
-          
+
             <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
         </div>
     </div>
@@ -40,7 +40,7 @@
     import 'quill/dist/quill.snow.css';
     import 'quill/dist/quill.bubble.css';
     import { quillEditor } from 'vue-quill-editor';
-    import article from './article'
+    import article from '../../api/article'
     export default {
         name: 'editor',
         data: function(){
@@ -66,10 +66,10 @@
         activated(){
              this.init()
         },
-    
+
         methods: {
             init(){
-             
+
                 if(this.$route.path=='/article-edit'){
                     window.getDate=this.reqlist
                     this.reqlist()
@@ -90,7 +90,7 @@
                   if(err.error_code==0){
                         this.$message.success('提交成功！');
                          window.closeTagsPage()
-                  } 
+                  }
                 //    if(err.){}
                }
                 if(datas.success==1){

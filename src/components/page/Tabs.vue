@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import Tabs from './Tabs.js'
+    import Tabs from '../../api/Tabs.js'
     export default {
         name: 'tabs',
         data() {

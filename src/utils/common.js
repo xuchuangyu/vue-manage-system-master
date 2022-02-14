@@ -1,3 +1,6 @@
+import {
+    Base64
+} from 'js-base64'
 
 export default {
     formatDate(date) {
@@ -15,4 +18,14 @@ export default {
         ss = ss < 10 ? ('0' + ss) : ss;
         return y + '-' + m + '-' + d + '  ' + h + ':' + mm + ':' + ss;
     },
+
+}
+export function _encode() {
+    // account:password
+    // token
+    // token:
+    const token = sessionStorage.getItem('token');
+    const base64 = Base64.encode(token + ':')
+    // Authorization:Basic base64(account:password)
+    return 'Basic ' + base64
 }

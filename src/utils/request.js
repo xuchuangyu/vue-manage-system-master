@@ -1,5 +1,6 @@
 import axios from 'axios';
 import router from '../router';
+import {_encode} from './common';
 import ElementUI from 'element-ui';
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
@@ -10,8 +11,10 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
-        console.log('config')
-        console.log(config)
+        if(sessionStorage.getItem('token')){
+            config.headers.Authorization =_encode()
+        }
+
         return config;
     },
     error => {
@@ -24,13 +27,13 @@ service.interceptors.response.use(
     response => {
         console.log('response')
         console.log(response)
-    
+
         if (response.status === 200) {
             return response.data;
         } else {
             Promise.reject();
         }
-      
+
     },
    async  error => {
         if (error.response) {
@@ -59,7 +62,7 @@ service.interceptors.response.use(
           }else{
             return Promise.reject(res);
           }
-       
+
     }
 );
 

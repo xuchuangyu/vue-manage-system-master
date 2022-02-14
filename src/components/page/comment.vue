@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import commmentApi from './comment'
+    import commmentApi from '../../api/comment'
     export default {
         data() {
             return {

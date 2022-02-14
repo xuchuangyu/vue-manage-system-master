@@ -64,7 +64,7 @@ export default {
                 {
                     icon: 'el-icon-lx-cascades',
                     index: '9',
-                    title: '文章',
+                    title: '内容管理',
                     subs: [
                             {
                                 index: 'article',
@@ -73,6 +73,10 @@ export default {
                             {
                                 index: 'comment',
                                 title: '文章评论'
+                            },
+                            {
+                              index: 'banner',
+                              title: '广告列表'
                             },
                         ]
                 },
@@ -107,7 +111,7 @@ export default {
                                     index: 'froalaEditor',
                                     title: 'froala编辑器'
                                 },
-                                
+
                                 {
                                     index: 'markdown',
                                     title: 'markdown编辑器'
